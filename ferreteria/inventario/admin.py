@@ -17,3 +17,5 @@ admin.site.register(ProductoDNiveles)
 
 admin.site.register(Compra)
 admin.site.register(CompraDetalle)
+admin.site.register(Venta)
+admin.site.register(VentaDetalle)

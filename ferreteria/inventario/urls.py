@@ -24,4 +24,14 @@ urlpatterns = [
 
     path('addProductoCompra/<numero>', views.addProductoCompra, name='addProductoCompra'),
     path('eliminar_detCompra/<id>', views.eliminar_detCompra, name='eliminar_detCompra'),
+
+    #Ventas
+    path('homeVentas/', views.list_ventas, name='homeVentas'),
+    path('eliminar_venta/<numero>', views.eliminar_venta, name='eliminar_venta'),
+    path('vnewVenta/', views.vnewVenta, name='vnewVenta'),
+    path('newVenta/', views.newVenta, name='newVenta'),
+    path('vistaVenta/<numero>', views.vistaVenta, name='vistaVenta'),
+
+    path('addProductoVenta/<numero>', views.addProductoVenta, name='addProductoVenta'),
+    path('eliminar_detVenta/<id>', views.eliminar_detVenta, name='eliminar_detVenta'),
 ]

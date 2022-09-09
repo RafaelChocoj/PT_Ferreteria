@@ -1,0 +1,51 @@
+{% extends "./home.html" %}
+
+{% block title %} Ventas {% endblock %}
+
+{% block body %}
+
+
+<a class="btn btn-success" href="{% url 'vnewVenta' %}">
+    <i class="fa-sharp fa-solid fa-plus"></i></i> Nuevo Venta
+</a>
+
+<div class="table-responsive py-2">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Documento</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th colspan="3">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pro in compras %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{pro.numero}}</td>
+                <td>{{pro.fecha| date:'d-m-Y H:i'}}</td>
+                <td>{{pro.cliente}}</td>
+
+                
+                <td>
+                    <a class="btn btn-info" href="{% url 'vistaVenta' pro.numero %}">
+                        <i class="fa-solid fa-file-invoice"></i>
+                    </a>
+                    <a class="btn btn-secondary" href="{% url 'vistaVenta' pro.numero %}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-danger btnEliminar" href="{% url 'eliminar_venta' pro.numero %}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

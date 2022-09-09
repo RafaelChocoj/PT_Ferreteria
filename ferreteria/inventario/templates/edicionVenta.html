@@ -1,16 +1,16 @@
 {% extends "./home.html" %}
 
-{% block title %} new Compra {% endblock %}
+{% block title %}  Venta {% endblock %}
 
 {% block body %}
 
 
 
-        <h3>Compra</h3>
+        <h3>Venta</h3>
 
         <div class="card">
             <div class="card-body">
-                <form id="formventa" action="{% url 'newCompra' %}" method="POST">{% csrf_token %}
+                <form id="formventa2" action="{% url 'newCompra' %}" method="POST">{% csrf_token %}
                     <div class="form-group">
                         <label for="numero">Documento:</label>
                         <input type="text" value="{{compra.numero}}" id="numero" name="numero" class="form-control mb-2" placeholder="Ingrese numero de Documento" maxlength="10" required readonly>
@@ -22,9 +22,9 @@
 
                     <div class="form-group">
                         <label>Proveedor:</label>
-                        <select form ="formventa" class="form-control mb-2" id="proveedor" name="proveedor">
+                        <select form ="formventa2" class="form-control mb-2" id="proveedor" name="proveedor">
                             {% for data in proveedores %}  
-                            <option value="{{data.nit}}" {% if data.nit == compra.proveedor.nit %}selected{% endif %}>{{data.nombre}}</option>
+                            <option value="{{data.nit}}" {% if data.nit == compra.cliente.nit %}selected{% endif %}>{{data.nombre}}</option>
                             {% endfor %}
                             
                         </select>
@@ -45,7 +45,7 @@
                 <th>#</th>
                 <th>Producto</th>
                 <th>Unidades</th>
-                <th>Costo</th>
+                <th>Precio</th>
                 <th colspan="3">Acciones</th>
             </tr>
         </thead>
@@ -55,7 +55,8 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{pro.productodetalle}}</td>
                 <td>{{pro.unidades}}</td>
-                <td>{{pro.costo}}</td>
+                <td>{{pro.precio}}</td>
+
                 
                 <td>
                     <!-- <a class="btn btn-info" href="{% url 'vistaProducto' pro.productodetalle %}">
@@ -64,7 +65,7 @@
                     <a class="btn btn-secondary" href="{% url 'vistaProducto' pro.productodetalle %}">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>-->
-                    <a class="btn btn-danger btnEliminar" href="{% url 'eliminar_detCompra' pro.id %}">
+                    <a class="btn btn-danger btnEliminar" href="{% url 'eliminar_detVenta' pro.id %}">
                         <i class="fa-solid fa-trash"></i>
                     </a>
 
@@ -92,7 +93,7 @@
         <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5">
             <div class="card">
                 <div class="card-body">
-                    <form action="{% url 'addProductoCompra' compra.numero %}" method="POST">{% csrf_token %}
+                    <form action="{% url 'addProductoVenta' compra.numero %}" method="POST">{% csrf_token %}
                         <div class="form-group">
 
                             <label>Producto:</label>
@@ -106,8 +107,8 @@
                             <label>Unidades:</label>
                             <input type="number" id="unidades" name="unidades" class="form-control mb-2" required>
 
-                            <label>Costo:</label>
-                            <input type="number" id="costo" name="costo" class="form-control mb-2" placeholder="costo" required>
+                            <label>Precio:</label>
+                            <input type="number" id="costo" name="costo" class="form-control mb-2" placeholder="Precio" required>
         
                             
                         </div>

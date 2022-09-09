@@ -71,14 +71,17 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Interno</th>
+                            <th>In</th>
                             <th>Bodega</th>
                             <th>Medida</th>
                             <th>Producto-Nivel</th>
-                            <th>Unidad por Medida</th>
+                            <th>Unidad * Medida</th>
                             <th>Precio</th>
                             <th>Costo</th>
                             <th>Stock</th>
+                            <th>|</th>
+                            <th>E</th>
+                            <th>S</th>
                             <th colspan="3">Acciones</th>
                         </tr>
                     </thead>
@@ -93,6 +96,9 @@
                             <td>{{pro.precio}}</td>
                             <td>{{pro.costo}}</td>
                             <td>{{pro.stock}}</td>
+                            <th>|</th>
+                            <td>{{pro.entradas}}</td>
+                            <td>{{pro.salidas}}</td>
                             
                             <td>
 

@@ -83,19 +83,14 @@ class ProductoDNiveles(models.Model):
 #class ProductoMedidas(models.Model):
 #    id = models.AutoField(primary_key=True)
 #    producto_detalle = models.ForeignKey(ProductoDetalle, on_delete=models.PROTECT, null=True)
-    
 #    medida = models.ForeignKey(Medida, on_delete=models.PROTECT)
-
 #    precio = models.DecimalField(max_digits=9, decimal_places=2)
 #    stock = models.DecimalField(max_digits=9, decimal_places=2)
-
 #    producto_medidas = models.ForeignKey('self', null=True,blank=True, on_delete=models.PROTECT)
 #    unidadxmedida = models.DecimalField(max_digits=9, decimal_places=2, default=1)
-
 #    def __str__(self):
 #            texto = "{0} - {1}"
 #            return texto.format(self.producto_detalle, self.medida)
-
 #    class Meta:
 #        unique_together = (('producto_detalle', 'medida'),)
 
@@ -120,3 +115,21 @@ class CompraDetalle(models.Model):
 #    def __str__(self):
 #            texto = "{0} ({1})"
 #            return texto.format(self.productomedidas, self.unidades)
+
+class Venta(models.Model):
+    numero = models.CharField(primary_key=True, max_length=10)
+    fecha = models.DateTimeField(null=True,blank=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=True,blank=True)
+    descripcion = models.CharField(max_length=150, null=True,blank=True)
+
+    def __str__(self):
+        texto = "{0} - {1}"
+        return texto.format(self.numero, self.cliente)
+
+class VentaDetalle(models.Model):
+    id = models.AutoField(primary_key=True)
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
+    productodetalle = models.ForeignKey(ProductoDNiveles, on_delete=models.PROTECT)
+
+    unidades = models.DecimalField(max_digits=9, decimal_places=2)
+    costo = models.DecimalField(max_digits=9, decimal_places=2,null=True)
