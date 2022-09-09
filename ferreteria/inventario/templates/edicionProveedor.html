@@ -1,0 +1,45 @@
+{% extends "./home.html" %}
+
+{% block title %} new Proveedor {% endblock %}
+
+{% block body %}
+
+
+        <h3>Editar Proveedor</h3>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'editarProveedor' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+
+                        <label for="nit">NIT:</label>
+                        <input type="text" value="{{provee.nit}}" id="nit" name="nit" class="form-control mb-2" placeholder="Ingrese NIT" maxlength="15" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" value="{{provee.nombre}}" id="nombre" name="nombre" class="form-control mb-2" placeholder="Ingrese Nombre" maxlength="75" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección:</label>
+                        <input type="text" value="{{provee.direccion}}" id="direccion" name="direccion" class="form-control mb-2"  placeholder="Ingrese Dirección">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+
+                        <a class="btn btn-light" href="/">
+                            Cancelar
+                        </a>
+
+                    </div>
+
+                    
+                </form>
+            </div>
+        </div>
+
+
+    
+
+
+
+{% endblock %}

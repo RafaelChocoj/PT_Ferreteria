@@ -1,0 +1,60 @@
+{% extends "./home.html" %}
+
+{% block title %} Proveedores {% endblock %}
+
+{% block body %}
+
+
+<a class="btn btn-success" href="{% url 'vnewProveedor' %}">
+    <i class="fa-sharp fa-solid fa-plus"></i></i> Nuevo Producto
+</a>
+
+<div class="table-responsive py-2">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Producto/Servicio</th>
+                <th>Tipo</th>
+                <th colspan="3">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pro in productos %}
+            <tr>
+                <td>{{pro.id}}</td>
+                <td>{{pro.nombre}}</td>
+
+                {% if pro.tipo == 'P' %}
+                    <td>Producto</td>
+                {% else %}
+                    <td>Servicio</td>
+                {% endif %}
+
+                {% if pro.tipo_producto == 'N' %}
+                    <td>Nivel</td>
+                {% else %}
+                    <td>Embalaje</td>
+                {% endif %}
+                
+                <td>
+                    <a class="btn btn-light" href="{% url 'vistaProducto' pro.id %}">
+                        <i class="fa-solid fa-hammer"></i>
+                    </a>
+                    <a class="btn btn-secondary" href="{% url 'vistaProducto' pro.id %}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-danger btnEliminar" href="{% url 'eliminarProveedor' pro.id %}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

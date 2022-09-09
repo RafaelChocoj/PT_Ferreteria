@@ -1,0 +1,56 @@
+{% extends "./home.html" %}
+
+{% block title %} new Compra {% endblock %}
+
+{% block body %}
+
+
+
+        <h3>Nueva Compra</h3>
+
+        <div class="card">
+            <div class="card-body">
+                <form id="formventa" action="{% url 'newCompra' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <label for="numero">Documento:</label>
+                        <input type="text" id="numero" name="numero" class="form-control mb-2" placeholder="Ingrese numero de Documento" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha Compra:</label>
+                        <input type="datetime-local" id="fecha" name="fecha" class="form-control mb-2" placeholder="Ingrese fecha" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Proveedor:</label>
+                        <select form ="formventa" class="form-control mb-2" id="proveedor" name="proveedor">
+                            {% for data in proveedores %}  
+                            <option value="{{data.nit}}">{{data.nombre}}</option>
+                            {% endfor %}
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción:</label>
+                        <input type="text" id="descripcion" name="descripcion" class="form-control mb-2"  placeholder="Ingrese descripcion">
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                        <a class="btn btn-light" href="{% url 'homeCompras' %}">
+                            Cancelar
+                        </a>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+
+    
+
+
+
+{% endblock %}

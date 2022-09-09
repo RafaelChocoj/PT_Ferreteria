@@ -1,0 +1,24 @@
+prurafapass
+
+port
+5432
+
+
+//Creating a project
+django-admin startproject <mysite>
+
+//Creating a app
+python manage.py startapp <app>
+
+
+//migrar el modelo
+python manage.py makemigrations
+
+python manage.py migrate
+
+
+
+//iniciar el servidor
+python manage.py runserver
+
+pip install psycopg2

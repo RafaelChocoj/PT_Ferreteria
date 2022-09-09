@@ -1,0 +1,123 @@
+{% extends "./home.html" %}
+
+{% block title %} Producto {% endblock %}
+
+{% block body %}
+
+
+        <h3>Producto</h3>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'editarProveedor' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+
+                        <label for="id">ID:</label>
+                        <input type="text" value="{{producto.id}}" id="id" name="id" class="form-control mb-2" maxlength="15" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" value="{{producto.nombre}}" id="nombre" name="nombre" class="form-control mb-2" placeholder="Ingrese Nombre" maxlength="75" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Medida:</label>
+                        <select class="form-control mr-sm-2" id="medida" name="medida" value="{{producto.medida.id}}" placeholder="medida">
+
+                            {% for data in medidas %}  
+                            <option value="{{data.id}}" {% if data.id == producto.medida.id %}selected{% endif %}>{{data.nombre}}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Producto/Servicio:</label>
+                        <select class="form-control mr-sm-2" id="tipo" name="tipo" value="{{producto.tipo}}" placeholder="tipo">
+                            <option value="P"{% if producto.tipo == 'P' %}selected{% endif %} >Producto</option>
+                            <option value="S" {% if producto.tipo == 'S' %}selected{% endif %}>Servicio</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo:</label>
+                        <select class="form-control mr-sm-2"  value="{{producto.tipo_producto}}" id="tipo_producto"  name="tipo_producto">
+                            <option value="E" {% if producto.tipo_producto == 'E' %}selected{% endif %}>Embalaje</option>
+                            <option value="N" {% if producto.tipo_producto == 'N' %}selected{% endif %}>Nivel</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Fecha Vencimiento:</label>
+                        <input type="datetime" value="{{producto.fecha_vencimiento}}" id="fecha_vencimiento" name="fecha_vencimiento" class="form-control mb-2">
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+
+                        <a class="btn btn-light" href="{% url 'homeProducto' %}">
+                            Cancelar
+                        </a>
+
+                    </div> -->
+
+                    
+                </form>
+            </div>
+
+
+            <div class="table-responsive py-2">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Interno</th>
+                            <th>Bodega</th>
+                            <th>Medida</th>
+                            <th>Producto-Nivel</th>
+                            <th>Unidad por Medida</th>
+                            <th>Precio</th>
+                            <th>Costo</th>
+                            <th>Stock</th>
+                            <th colspan="3">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pro in productoDet %}
+                        <tr>
+                            <td>{{pro.id}}</td>
+                            <td>{{pro.bodega}}</td>
+                            <td>{{pro.producto_nivel.medida.nombre}}</td>
+                            <td>{{pro.producto_nivel}}</td>
+                            <td>{{pro.unidadxmedida}}</td>
+                            <td>{{pro.precio}}</td>
+                            <td>{{pro.costo}}</td>
+                            <td>{{pro.stock}}</td>
+                            
+                            <td>
+
+                                <a class="btn btn-secondary" href="{% url 'vistaProducto' pro.id %}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a class="btn btn-danger btnEliminar" href="{% url 'eliminarProveedor' pro.id %}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+            
+            
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+
+
+    
+
+
+
+{% endblock %}
