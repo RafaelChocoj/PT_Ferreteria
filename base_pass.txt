@@ -1,7 +1,8 @@
+basename: ferreteria
+
 prurafapass
 
-port
-5432
+port: 5432
 
 
 //Creating a project
