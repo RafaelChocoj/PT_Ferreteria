@@ -1,3 +1,4 @@
+from asyncio import PriorityQueue
 from multiprocessing.connection import Client
 from multiprocessing.dummy import Array
 from django.shortcuts import render, redirect
@@ -5,6 +6,8 @@ from .models import Cliente, Compra, CompraDetalle, Medida, Producto, ProductoDN
 from django.contrib import messages
 from datetime import datetime
 from decimal import Decimal
+from operator import attrgetter
+
 
 # Create your views here.
 def list_proveedores(request):
@@ -78,6 +81,46 @@ def list_compras(request):
 def list_ventas(request):
     ventas = Venta.objects.all()
     return render(request, "list_ventas.html", {"compras": ventas})
+
+class movcardex:
+  def __init__(self, id, fecha,tipo,doc,idprod, producto, entradas, salidas, totales):
+    self.id = id
+    self.fecha = fecha
+    self.tipo = tipo
+    self.doc = doc
+    self.idprod = idprod
+    self.producto = producto
+    self.entradas = entradas
+    self.salidas = salidas
+    self.totales = totales
+
+def list_movcardex(request):
+
+    comprasdet = CompraDetalle.objects.all()
+    ventasdet = VentaDetalle.objects.all()
+
+    movs = []
+    totales = 0
+    for cdet in comprasdet:
+
+        texto = "{0} | {1} | {2}"
+        prod = texto.format(cdet.productodetalle.producto.nombre, cdet.productodetalle.producto.medida.nombre, cdet.productodetalle.bodega.nombre)
+
+        mc = movcardex(cdet.id, cdet.compra.fecha, "CO", cdet.compra.numero,cdet.productodetalle.producto.id,prod,cdet.unidades,0,0 )
+        totales = totales + cdet.unidades
+        movs.append(mc)
+
+    for vdet in ventasdet:
+
+        texto = "{0} | {1} | {2}"
+        prod = texto.format(vdet.productodetalle.producto.nombre, vdet.productodetalle.producto.medida.nombre, vdet.productodetalle.bodega.nombre)
+
+        mc = movcardex(vdet.id, vdet.venta.fecha, "VE", vdet.venta.numero,vdet.productodetalle.producto.id, prod,0,vdet.unidades,0 )
+        totales = totales - vdet.unidades
+        movs.append(mc)
+
+    movs.sort(key=attrgetter('fecha'))
+    return render(request, "list_movcardex.html", {"comprasdet": movs, "totales": totales})
 
 def eliminar_compra(request, numero):
     compra = Compra.objects.get(numero=numero)

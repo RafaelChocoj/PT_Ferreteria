@@ -34,4 +34,6 @@ urlpatterns = [
 
     path('addProductoVenta/<numero>', views.addProductoVenta, name='addProductoVenta'),
     path('eliminar_detVenta/<id>', views.eliminar_detVenta, name='eliminar_detVenta'),
+
+    path('movCardex/', views.list_movcardex, name='movCardex'),
 ]

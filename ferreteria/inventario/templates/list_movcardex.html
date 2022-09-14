@@ -1,0 +1,57 @@
+{% extends "./home.html" %}
+
+{% block title %} Cardex {% endblock %}
+
+{% block body %}
+
+
+
+<div class="table-responsive py-2">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>id</th>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Documento</th>
+                <th>Producto</th>
+                <th>Entradas</th>
+                <th>Salidas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pro in comprasdet %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{pro.id}}</td>
+                <td>{{pro.fecha| date:'d/m/Y H:i'}}</td>
+                <td>{{pro.tipo}}</td>
+                <td>{{pro.doc}}</td>
+                <td>{{pro.producto}}</td>
+                <td>{{pro.entradas}}</td>
+                <td>{{pro.salidas}}</td>
+
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table table-hover table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th>Existencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{totales}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
